@@ -24,6 +24,7 @@ bl_info = {
     "description": "Plugin saves rotation animation as AVI file.",
     "author": "Mateusz Dera",
     "version": (1, 0),
+    "blender": (2, 80, 0),
     "tracker_url": "",
     "category": "Render"
 }
@@ -40,7 +41,7 @@ class create(bpy.types.Operator):
         
         obj = None
         
-        obj = bpy.context.scene.objects.active
+        obj = bpy.context.object
             
         obj.animation_data_clear()
         
@@ -56,12 +57,6 @@ class create(bpy.types.Operator):
         context.scene.render.resolution_y = context.scene.anim360height
         context.scene.frame_end = context.scene.anim360frames
         
-        if context.scene.anim360samples == "DISABLED":
-            bpy.context.scene.render.use_antialiasing = False
-        else:
-            bpy.context.scene.render.use_antialiasing = True
-            bpy.context.scene.render.antialiasing_samples = context.scene.anim360samples
-        
         bpy.context.scene.render.fps = context.scene.anim360fps 
         bpy.context.scene.render.fps_base = 1
         
@@ -74,7 +69,7 @@ class create(bpy.types.Operator):
 class main_panel(bpy.types.Panel):
     bl_idname = "panel.main_panel"
     bl_space_type = "VIEW_3D"
-    bl_region_type = "TOOLS"
+    bl_region_type = "UI"
     bl_label = "Anim 360"
     bl_category = "Anim 360"
 
@@ -102,8 +97,6 @@ class main_panel(bpy.types.Panel):
         layout.operator("anim360.create", text="Create presentation")
  
 def register() :
-    samples = [("16", "16", "16 samples"),("11", "11", "11 samples"),("8", "8", "8 samples"),("5", "5", "5 samples"),("DISABLED", "Disabled", "Disabled Anti-Aliasing")]
-    
     bpy.utils.register_class(create)
     bpy.utils.register_class(main_panel)
     bpy.types.Scene.anim360degrees = bpy.props.FloatProperty \
@@ -142,12 +135,6 @@ def register() :
         default = 60,
         min=24,
         max=240
-      )
-    bpy.types.Scene.anim360samples = bpy.props.EnumProperty \
-      (
-        name = "", 
-        description = "Anti-Aliasing samples",
-        items=samples
       )
     bpy.types.Scene.anim360path = bpy.props.StringProperty \
       (
