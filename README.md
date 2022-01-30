@@ -7,5 +7,5 @@
 ## Installation:
 - Extract archive and select main.py
 ## Screens:
-![](menu.png)
+![](1.png)
 ![](example.gif)
