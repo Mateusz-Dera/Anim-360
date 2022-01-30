@@ -1,5 +1,5 @@
 # Anim 360
-# Copyright © 2020 Mateusz Dera
+# Copyright © 2020-2022 Mateusz Dera
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,19 +19,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+import bpy
+from math import radians
+from mathutils import Euler
+
 bl_info = {
     "name": "Anim 360",
     "description": "Plugin saves rotation animation as AVI file.",
     "author": "Mateusz Dera",
-    "version": (1, 0),
-    "blender": (2, 80, 0),
+    "version": (1, 1),
+    "blender": (3, 0, 0),
     "tracker_url": "",
     "category": "Render"
 }
- 
-import bpy
-from math import radians
-from mathutils import Euler
 
 class create(bpy.types.Operator):
     bl_idname = 'anim360.create'
